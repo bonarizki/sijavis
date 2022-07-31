@@ -15,7 +15,7 @@
 
 <div class="container">
     @forelse ($orders as $order)
-        <div class="card">
+        <div class="card mb-2">
             <div class="card-header">
                 Booking Code - {{ $order->booking_code }}
             </div>

@@ -51,7 +51,7 @@
                     </div>
                     <a href="{{ url('orders') }}" class="nav-item nav-link" id="order">
                         <i class="fa fa-tachometer-alt me-2"></i>
-                        Order Rental
+                        Booking Service
                     </a>
                 </div>
                 <div></div>
