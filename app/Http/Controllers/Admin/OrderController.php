@@ -29,7 +29,10 @@ class OrderController extends Controller
     public function update(ServiceRequest $request, Order $order)
     {
         $order->update([
-            "status" => $request->status
+            "status" => $request->status,
+            "technician_name" => $request->technician_name,
+            "service_price" => $request->service_price == null ? null : str_replace('Rp ','',str_replace('.','',$request->service_price)),
+            "sparepart_price" => $request->sparepart_price == null ? null : str_replace('Rp ','',str_replace('.','',$request->sparepart_price)),
         ]);
         return response()->json(["status" => "success", "message" => "Order Updated"]);
     }

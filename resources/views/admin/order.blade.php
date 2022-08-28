@@ -13,8 +13,8 @@
                             <h6 class="mb-2">List Booking Service</h6>
                         </div>
                     </div>
-                    <div class="">
-                        <table class="table table-bordered table-hover" id="table" width="100%">
+                    <div class="row table-responsive">
+                        <table class="table table-bordered table-hover table-sm" id="table" width="100%">
                             <thead>
                                 <tr>
                                     <th scope="col" rowspan="2" class="align-middle">#</th>
@@ -24,6 +24,10 @@
                                     <th scope="col" rowspan="2" class="align-middle">Date Service</th>
                                     <th scope="col" rowspan="2" class="align-middle">Time Service</th>
                                     <th scope="col" rowspan="2" class="align-middle">Description</th>
+                                    <th scope="col" rowspan="2" class="align-middle">Teknisi</th>
+                                    <th scope="col" rowspan="2" class="align-middle">Service Price</th>
+                                    <th scope="col" rowspan="2" class="align-middle">Sparepart Price</th>
+                                    <th scope="col" rowspan="2" class="align-middle">Total Price</th>
                                     <th scope="col" rowspan="2" class="align-middle">Status</th>
                                     <th scope="col" colspan="2"><center>Action<center></th>
                                 </tr>
@@ -97,11 +101,37 @@
                                             <label for="description">Description</label>
                                         </div>
                                         <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="technician_name" name="technician_name"
+                                                placeholder="Technician Name">
+                                            <label for="category">Technician Name</label>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="form-floating mb-3">
+                                                    <input type="text" class="form-control" id="service_price" name="service_price"
+                                                        placeholder="Service Price" onkeyup="formatRupiah(this),total()">
+                                                    <label for="service_price">Service Price</label>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-floating mb-3">
+                                                    <input type="text" class="form-control" id="sparepart_price" name="sparepart_price"
+                                                        placeholder="Sparepart Price" onkeyup="formatRupiah(this),total()">
+                                                    <label for="sparepart_price">Sparepart Price</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="total_price" name="total_price"
+                                                placeholder="Total Price" readonly>
+                                            <label for="total_price">Total Price</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
                                             <select name="status" id="status" class="form-control">
                                                 <option value="booking">Booking</option>
                                                 <option value="done">done</option>
                                             </select>
-                                            <label for="description">Description</label>
+                                            <label for="status">Status</label>
                                         </div>
                                     </div>
                                 </div>
@@ -158,6 +188,34 @@
                 {
                     data: "description",
                     name: "description"
+                },
+                {
+                    data: "technician_name",
+                    name: "technician_name",
+                    render : (data) => {
+                        return data == null ? "-" : data ;
+                    }
+                },
+                {
+                    data: "service_price",
+                    name: "service_price",
+                    render : (data) => {
+                        return data == null ? "-" : data ;
+                    }
+                },
+                {
+                    data: "sparepart_price",
+                    name: "sparepart_price",
+                    render : (data) => {
+                        return data == null ? "-" : data ;
+                    }
+                },
+                {
+                    data: "id",
+                    name: "id",
+                    render : (data,meta,row) => {
+                        return data == null ? "-" : data ;
+                    }
                 },
                 {
                     data: "status",
@@ -244,6 +302,10 @@
                     $('#category_id').val(data.category_id);
                     $('#status').val(data.status);
                     $('#description').text(data.description);
+                    data.technician_name != null ? $('#technician_name').val(data.technician_name) : ""
+                    data.sparepart_price != null ? $('#sparepart_price').val(formatRupiahReturn(data.sparepart_price)) : ""
+                    data.service_price != null ? $('#service_price').val(formatRupiahReturn(data.service_price)) : ""
+                    data.service_price != null ? total() : ""
                     // $('#category_code').val(res.data.category_code);
                 },
                 complete : () => {
@@ -308,6 +370,12 @@
                     $('#form')[0].reset()
                 }
             })
+        }
+
+        const total = () => {
+            let service_price = formatRupiahInteger($('#service_price').val())
+            let sparepart_price = formatRupiahInteger($('#sparepart_price').val())
+            $('#total_price').val(formatRupiahReturn(`'${parseInt(service_price) + parseInt(sparepart_price)}'`))
         }
     </script>
 @endsection
