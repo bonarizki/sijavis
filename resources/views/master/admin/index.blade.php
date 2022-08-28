@@ -53,6 +53,10 @@
                         <i class="fa fa-tachometer-alt me-2"></i>
                         Booking Service
                     </a>
+                    <a href="{{ url('history') }}" class="nav-item nav-link" id="history">
+                        <i class="fa fa-clock me-2"></i>
+                        History
+                    </a>
                 </div>
                 <div></div>
             </nav>

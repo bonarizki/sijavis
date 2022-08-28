@@ -54,5 +54,11 @@ Route::middleware(['auth.admin'])->group(function () {
     Route::resource('category',CategoryController::class);
     Route::resource('users',UserController::class);
     Route::resource('orders',OrderController::class);
+    Route::get('history', function() {
+        // $orders = Order::with('Category')
+        //     ->where('user_id',Auth::user()->id)
+        //     ->get();
+        return view('admin.history');
+    });
 });
 

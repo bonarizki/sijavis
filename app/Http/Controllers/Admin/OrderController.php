@@ -13,7 +13,9 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            return DataTables::of(Order::with(['User','Category'])->get())
+            $query = Order::with(['User','Category'])
+                ->where('status',$request->status);
+            return DataTables::of($query->get())
                 ->addIndexColumn()
                 ->make(true);
         }

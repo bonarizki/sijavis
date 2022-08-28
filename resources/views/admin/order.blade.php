@@ -158,6 +158,9 @@
                 ajax : {
                     url : "{{ url('orders') }}",
                     method : "get",
+                    data : {
+                        status : "booking"
+                    }
                 },
                 destroy : true,
                 serverSide : true,
